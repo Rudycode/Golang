@@ -31,7 +31,7 @@ func main() {
 	//
 	http.Handle("/assets/", http.StripPrefix("/assets", http.FileServer(http.Dir("./assets"))))
 	http.HandleFunc("/", indexHandler)
-	http.HandleFunc("/login", loginHandler)
+	http.HandleFunc("/login.html", loginHandler)
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
