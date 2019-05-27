@@ -92,9 +92,9 @@ func main() {
 	cardNumber := verifyCardNumber("017 10 1312")
 
 	if cardNumber {
-		fmt.Println(" all good")
+		fmt.Println("Verification passed! Congratulations!")
 	} else {
-		fmt.Println("not good")
+		fmt.Println("Verification failed! Try again!")
 	}
 
 }
