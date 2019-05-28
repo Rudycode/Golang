@@ -7,17 +7,28 @@ import (
 )
 
 
+func main() {
 
-// second stage of luhn algorithm, check sum
-func secondStageVerify(card []int) bool {
-	var cardSumm int
-	for _, value := range card {
-		cardSumm += value
-	}
-	if cardSumm%10 == 0 {
-		return true
+	cardNumber := verifyCardNumber("017 10 1312")
+
+	if cardNumber {
+		fmt.Println("Verification passed! Congratulations!")
 	} else {
-		return false
+		fmt.Println("Verification failed! Try again!")
+	}
+
+}
+
+func verifyCardNumber(card string) bool {
+	var filteredCardNumber string
+
+	re := regexp.MustCompile("\\D")
+	filteredCardNumber = re.ReplaceAllString(card, "")
+
+	if len(filteredCardNumber)%2 == 0 {
+		return lenCardPaired(filteredCardNumber)
+	} else {
+		return lenCardUnpaired(filteredCardNumber)
 	}
 
 }
@@ -73,28 +84,18 @@ func lenCardUnpaired(card string) bool {
 	return secondStageVerify(resulrVerify)
 }
 
-func verifyCardNumber(card string) bool {
-	var filteredCardNumber string
 
-	re := regexp.MustCompile("\\D")
-	filteredCardNumber = re.ReplaceAllString(card, "")
 
-	if len(filteredCardNumber)%2 == 0 {
-		return lenCardPaired(filteredCardNumber)
-	} else {
-		return lenCardUnpaired(filteredCardNumber)
+// second stage of luhn algorithm, check sum
+func secondStageVerify(card []int) bool {
+	var cardSumm int
+	for _, value := range card {
+		cardSumm += value
 	}
-
-}
-
-func main() {
-
-	cardNumber := verifyCardNumber("017 10 1312")
-
-	if cardNumber {
-		fmt.Println("Verification passed! Congratulations!")
+	if cardSumm%10 == 0 {
+		return true
 	} else {
-		fmt.Println("Verification failed! Try again!")
+		return false
 	}
 
 }
