@@ -25,8 +25,6 @@ func hammingDifference(a, b string) uint8 {
 	secondDNA := make([]rune, len(b))
 	var count uint8
 
-	fmt.Println(len(a), len(b))
-
 	for key, value := range a {
 		firstDNA [key] = value
 	}
@@ -36,8 +34,5 @@ func hammingDifference(a, b string) uint8 {
 			count++
 		}
 	}
-
-	fmt.Println(firstDNA, secondDNA)
-
 	return count
 }
