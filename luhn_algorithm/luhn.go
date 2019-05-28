@@ -17,21 +17,17 @@ func main() {
 	} else {
 		fmt.Println("Verification failed! Try again!")
 	}
-
 }
 
 func verifyCardNumber(card string) bool {
 	var filteredCardNumber string
 	var resulrVerify []int
-
 	re := regexp.MustCompile("\\D")
 	filteredCardNumber = re.ReplaceAllString(card, "")
 
-	fmt.Println(len(filteredCardNumber), filteredCardNumber)
 	for key, value := range filteredCardNumber {
 
-		valueAsInt, err := strconv.Atoi(string(value))
-		// конвертим со строки в инт, обрабатываем ошибку
+		valueAsInt, err := strconv.Atoi(string(value)) // конвертим со строки в инт, обрабатываем ошибку
 		if err != nil {
 			return false
 		}
@@ -47,8 +43,8 @@ func verifyCardNumber(card string) bool {
 			} else {
 				resulrVerify = append(resulrVerify, valueAsInt)
 			}
-
-		} else {
+		}
+		if len(filteredCardNumber)%2 != 0 {
 			// unpair len card
 			if key%2 != 0 {
 
@@ -62,15 +58,14 @@ func verifyCardNumber(card string) bool {
 			}
 		}
 	}
-
 	return secondStageVerify(resulrVerify)
 }
 
-// second stage of luhn algorithm, check sum, 
+// second stage of luhn algorithm, check sum
 func secondStageVerify(card []int) bool {
-	fmt.Println(card)
 
 	var cardSumm int
+
 	for _, value := range card {
 		cardSumm += value
 	}
@@ -79,5 +74,4 @@ func secondStageVerify(card []int) bool {
 	} else {
 		return false
 	}
-
 }
