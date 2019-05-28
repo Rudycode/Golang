@@ -1,10 +1,7 @@
 package main
 
-import (
+import "fmt"
 
-	"fmt"
-
-)
 
 /*
 
