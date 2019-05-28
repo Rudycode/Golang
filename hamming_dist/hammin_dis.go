@@ -28,7 +28,7 @@ func hammingDifference(a, b string) (uint8, string) {
 	secondDNA := make([]rune, len(b))
 	var count uint8
 	str := "The Hamming distance is"
-	err:=  "Error! Strings have different length!"
+	err :=  "Error! Strings have different length!"
 
 	if len(a) != len(b){
 		return 0, err
