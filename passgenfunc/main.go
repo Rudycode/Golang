@@ -6,37 +6,40 @@ import (
 	"time"
 )
 
-func main() {
-	rand.Seed(time.Now().UTC().UnixNano())
-	first := generationPass()
-	fmt.Println("In Main1", first())
-}
+const DefaultString = "0123456789"
 func randInt(min int, max int) int {
 	return min + rand.Intn(max-min)
 }
-func generationPass() func() map[int]int {
-	generatedLen := 300
-	generatedMap := make(map[int]int, generatedLen)
-	return func() map[int]int {
+func generationPass(x int) func() map[string]string {
+	generatedLen := x
+	generatedMap := make(map[string]string, generatedLen)
+	return func() map[string]string {
 		min := 0
-		max := 10
-		var m int
-		count := 0
-		var duplicatedValue []int
-		for i := 1; i <= generatedLen; i++ {
-			a, ok := generatedMap[m]
+		max := len(DefaultString)
+		var m string
+		var sum int
+		for {
+			m = string(DefaultString[randInt(min, max)])
+			for i := 0; i < sum; i++ {
+				m += string(DefaultString[randInt(min, max)])
+			}
+			_, ok := generatedMap[m]
 			if ok {
-				fmt.Println(a)
-				max *= 10
-				count++
-				m = randInt(min, max)
-				generatedMap[i] = m
-				duplicatedValue = append(duplicatedValue, a)
-			} else {
-				m = randInt(min, max)
-				generatedMap[i] = m
+				sum++
+			}
+			generatedMap[m] = m
+
+			if len(generatedMap) >= (generatedLen - 1) {
+				break
 			}
 		}
 		return generatedMap
 	}
+}
+
+func main() {
+	rand.Seed(time.Now().UTC().UnixNano())
+
+	first := generationPass(300)
+	fmt.Println("In Main1", first(), len(first()))
 }
